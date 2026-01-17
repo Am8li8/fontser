@@ -1,21 +1,3 @@
-// 1. إعدادات Firebase الخاصة بمشروعك
-const firebaseConfig = {
-    apiKey: "AIzaSyDimIFq47GG61jeP6_QT6pOvXznup-W_vo",
-    authDomain: "fontser-a3ca2.firebaseapp.com",
-    databaseURL: "https://fontser-a3ca2-default-rtdb.firebaseio.com",
-    projectId: "fontser-a3ca2",
-    storageBucket: "fontser-a3ca2.firebasestorage.app",
-    messagingSenderId: "977971868992",
-    appId: "1:977971868992:web:5e5993958d7f3f1f9a76a5",
-    measurementId: "G-QSBB7MEFF4"
-};
-
-// بدء تشغيل Firebase
-if (!firebase.apps.length) {
-    firebase.initializeApp(firebaseConfig);
-}
-const db = firebase.database();
-
 document.addEventListener("DOMContentLoaded", () => {
     
     // --- 1. منطق معاينة الخطوط ---
