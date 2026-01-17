@@ -18,7 +18,7 @@ const db = firebase.database();
 
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- 1. منطق معاينة الخطوط (الذي أرسلته أنت) ---
+    // --- 1. منطق معاينة الخطوط ---
     const cards = document.querySelectorAll('.font-card-wrapper');
 
     cards.forEach(card => {
@@ -42,15 +42,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const progressBar = document.getElementById('progressBar');
     const currentVotesEl = document.getElementById('currentVotes');
     const voteBtn = document.querySelector(".btn-vote-trigger");
-    const fontId = "EliteFont_01"; // المعرف الثابت في قاعدة البيانات
+    const fontId = "EliteFont_01"; 
 
-    // مراقبة العداد من Firebase وتحديث الزر تلقائياً
+    // مراقبة العداد من Firebase وتحديث الواجهة
     db.ref('votes/' + fontId).on('value', (snapshot) => {
-        const data = snapshot.val() || { count: 0 };
-        const count = data.count;
+        const data = snapshot.val();
+        // إذا لم توجد بيانات، نعتبر العداد 0
+        const count = (data && data.count) ? data.count : 0;
 
-        // تحديث النص وشريط التقدم في النافذة
-        if (currentVotesEl) currentVotesEl.innerText = count;
+        // تحديث النص (هذا سيحذف جملة "سيتم الربط قريباً" ويضع الرقم)
+        if (currentVotesEl) {
+            currentVotesEl.innerText = count;
+        }
+
+        // تحديث شريط التقدم
         if (progressBar) {
             const percent = (Math.min(count, 50) / 50) * 100;
             progressBar.style.width = percent + '%';
@@ -61,26 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
             voteBtn.innerText = "تحميل الخط الآن";
             voteBtn.style.cssText = "background: #27ae60 !important; color: #fff !important; border: none; font-weight: bold; cursor: pointer;";
             voteBtn.onclick = (e) => {
-                e.stopPropagation(); // منع فتح النافذة مرة أخرى
-                window.location.href = "files/EliteFont.zip"; // رابط التحميل
+                e.stopPropagation();
+                window.location.href = "files/EliteFont.zip";
             };
         }
     });
 
-    // وظيفة فتح النافذة
     window.openVoteModal = function(name, votes) {
         document.getElementById('modalFontName').innerText = name;
-        // سيتم جلب الـ votes الحقيقية من Firebase تلقائياً عبر المستمع (on value)
         voteModal.style.display = 'flex';
     };
 
-    // وظيفة إغلاق النافذة
     window.closeVoteModal = function() {
         voteModal.style.display = 'none';
-        // لا نحتاج تصفير الشريط هنا لأن Firebase سيقوم بتحديثه عند الفتح القادم
     };
 
-    // وظيفة تأكيد التصويت في Firebase (تمنع التكرار)
     window.confirmVote = function() {
         if (localStorage.getItem('voted_' + fontId)) {
             alert("يا مالك، لقد قمت بالتصويت مسبقاً لهذا الخط!");
@@ -88,7 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // تحديث العداد بزيادة 1
         db.ref('votes/' + fontId + '/count').transaction((currentCount) => {
             return (currentCount || 0) + 1;
         }, (error, committed) => {
@@ -97,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("شكراً لك! تم احتساب صوتك.");
                 closeVoteModal();
             } else {
-                alert("حدث خطأ في الاتصال، تأكد من الـ Rules.");
+                alert("حدث خطأ في الاتصال، تأكد من إعدادات الـ Rules في Firebase.");
             }
         });
     };
