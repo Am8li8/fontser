@@ -1,0 +1,539 @@
+@font-face {
+    font-family: Rabie;
+    src: url('../fonts/RABIE-REGULAR.TTF');
+}
+
+@font-face {
+    font-family: 'HT Moshreq Pro'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/HTMoshreqPro-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'TS Zunburk'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/TS-Zunburk-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Salma'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/salma.otf');
+}
+
+@font-face {
+    font-family: 'Fatimah'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/fatimah.otf');
+}
+
+@font-face {
+    font-family: 'Rawasi'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/RawasiDisplayArabic-Medium.otf');
+}
+
+@font-face {
+    font-family: 'Paykan'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Paykan-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Foda'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/foda-reg.otf');
+}
+
+@font-face {
+    font-family: 'Ghoraab'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/GhraabArabicitf-ExtraBold.otf');
+}
+
+@font-face {
+    font-family: 'Rubama'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/KORubbama-Black.ttf');
+}
+
+@font-face {
+    font-family: 'Mawzoon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Mawzoon-Normal.otf');
+}
+
+@font-face {
+    font-family: 'Aynama'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/KOAynama-Sharp.ttf');
+}
+
+@font-face {
+    font-family: 'Omnia'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/OmniaSerif-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Orleen'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Orleen-Regular@kt0kt.otf');
+}
+
+@font-face {
+    font-family: 'Typokaar'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Typokaar.ttf');
+}
+
+@font-face {
+    font-family: 'Ts studio'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/TSStudio-Bold.otf');
+}
+
+@font-face {
+    font-family: 'Shaheen'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Shaheen_Pro_Bold.otf');
+}
+
+@font-face {
+    font-family: 'Qorunful'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Qoronfull-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Mestika'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Mestika-Regular.otf');
+}
+
+@font-face {
+    font-family: 'Mishmish'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Mishmish_Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Lina'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/Lina_Round_Medium.otf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+@font-face {
+    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+}
+
+
+
+
+
+
+
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f0f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #9e9e9e, #838383);
+    border-radius: 2px;
+}
+
+
+* {
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box; /* لضمان دقة المقاسات */
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #0f0f0f; /* لون أسود أعمق للفخامة */
+    font-family: Rabie, sans-serif;
+    color: #ffffff;
+}
+
+/* الهيدر الحديث */
+/* --- الهيدر الأساسي --- */
+.premium-header {
+    background-color: #202020;
+    margin: 1em;
+    border-radius: 10px;
+    padding: 1em 1.5em; /* تقليل البادينج قليلاً لزيادة المساحة */
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* مسافة بين العناصر */
+}
+
+/* --- تصميم اللوجو الفخم --- */
+.logo-text {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -1px;
+    transition: 0.4s ease;
+    white-space: nowrap; /* يمنع انكسار اللوجو */
+}
+
+.logo-text .dot {
+    color: #d4af37;
+}
+
+.logo-text:hover {
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* --- روابط التنقل (تظهر دائماً) --- */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s all ease;
+    padding: 8px 12px;
+    border-radius: 12px;
+    white-space: nowrap; /* يمنع نزول النص لسطر جديد */
+}
+
+.nav-item i {
+    color: #d4af37;
+    font-size: 0.85rem;
+}
+
+.nav-item:hover {
+    color: #d4af37;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* --- تمييز رابط الخطوط المدفوعة --- */
+.premium-link {
+    position: relative;
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.premium-link i {
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.premium-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* --- زر التواصل Ultra Modern --- */
+.contact-ultra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 25px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: #d4af37;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+}
+
+.contact-ultra i {
+    font-size: 0.8rem;
+}
+
+.contact-ultra:hover {
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    transform: scale(1.05);
+}
+
+/* --- نظام التجاوب الشامل (بدون إخفاء) --- */
+@media (max-width: 1024px) {
+    .logo-text { font-size: 1.5rem; }
+    .nav-item { font-size: 0.85rem; padding: 6px 10px; }
+    .contact-ultra { padding: 8px 18px; font-size: 0.85rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        overflow-x: auto; /* يسمح بالتمرير الأفقي إذا ضاقت الشاشة */
+        justify-content: flex-start; /* ترتيب العناصر من اليمين */
+        padding-bottom: 5px; /* مساحة بسيطة تحت التمرير */
+    }
+
+    /* إخفاء شريط التمرير للحفاظ على الجمالية */
+    .nav-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .premium-header {
+        padding: 0.8em 1em;
+        margin: 0.5em;
+    }
+
+    .logo-text { font-size: 1.3rem; }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        gap: 20px; /* توسيع الفراغ بين العناصر لتسهيل اللمس أثناء التمرير */
+    }
+}
+
+/* حاوية الشبكة - 4 كروت في الصف */
+.fonts-grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    padding: 40px 5%;
+    direction: rtl;
+}
+
+/* الكارت الأساسي وتأثيرات الحركة */
+.font-card-wrapper {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 25px;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* تأثير عند تمرير الماوس على الكارت */
+.font-card-wrapper:hover {
+    transform: translateY(-12px) scale(1.02);
+    border-color: #d4af37;
+    background: #1e1e1e;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+/* رأس الكارت والشارة الخضراء */
+.card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.status-badge {
+    background: rgba(46, 213, 115, 0.15); /* خلفية خضراء شفافة */
+    color: #2ed573; /* لون أخضر نيون */
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border: 1px solid rgba(46, 213, 115, 0.3);
+    box-shadow: 0 0 15px rgba(46, 213, 115, 0.1);
+}
+
+.font-title {
+    color: #888;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* منطقة المعاينة - تدعم نزول السطر تلقائياً */
+.preview-box {
+    min-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 0;
+}
+
+.main-display {
+    font-size: 2.2rem;
+    color: #ffffff;
+    line-height: 1.4;
+    width: 100%;
+    /* السحر البرمجي لنزول النص لسطر جديد */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    transition: all 0.4s ease;
+}
+
+/* تفعيل هوفر النص ليصبح ذهبي */
+.font-card-wrapper:hover .main-display {
+    color: #d4af37;
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+/* صندوق الإدخال (التجربة) */
+.input-wrapper {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 14px 45px 14px 15px;
+    background: #0f0f0f;
+    border: 1px solid #333;
+    border-radius: 14px;
+    color: #fff;
+    font-family: inherit; /* لضمان استخدام الخط المعين */
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-wrapper input:focus {
+    border-color: #d4af37;
+    background: #151515;
+}
+
+.input-wrapper i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    transition: 0.3s;
+}
+
+.input-wrapper input:focus + i {
+    color: #d4af37;
+}
+
+/* تذييل الكارت - العناصر تحت بعضها */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    margin-top: auto;
+}
+
+.font-specs {
+    display: flex;
+    flex-direction: column; /* جعل المواصفات تحت بعضها */
+    gap: 10px;
+}
+
+.font-specs span {
+    color: #777;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.font-specs i {
+    color: #d4af37;
+    width: 18px;
+    text-align: center;
+}
+
+/* زر التحميل الحديث */
+.btn-download {
+    background: #ffffff;
+    color: #000;
+    padding: 6px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.btn-download:hover {
+    background: #d4af37;
+    color: #fff;
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+}
+
+/* التجاوب مع الشاشات */
+@media (max-width: 1300px) {
+    .fonts-grid-container { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 700px) {
+    .fonts-grid-container { 
+        grid-template-columns: 1fr;
+        padding: 20px 10%;
+    }
+}
+
+/* --- نافذة التصويت (Pop-up) --- */
+.vote-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    backdrop-filter: blur(10px);
+}
+
+.vote-modal-card {
+    background: #1a1a1a;
+    width: 90%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    text-align: center;
+    position: relative;
+    color: white;
+}
+
+.modal-icon { font-size: 3rem; color: #d4af37; margin-bottom: 20px; }
+.progress-bar-bg { width: 100%; height: 12px; background: #000; border-radius: 50px; overflow: hidden; margin: 20px 0; }
+.progress-bar-fill { height: 100%; background: #d4af37; width: 0%; transition: width 1s ease; }
+.close-modal { position: absolute; top: 15px; right: 20px; color: #888; font-size: 30px; cursor: pointer; background: none; border: none; }
+.confirm-vote-btn { width: 100%; padding: 15px; border-radius: 15px; border: none; background: #fff; color: #000; font-weight: bold; cursor: pointer; }
+
+/* أضف كود كروت الخطوط الذي أرسلته سابقاً هنا */

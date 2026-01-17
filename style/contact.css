@@ -1,0 +1,289 @@
+@font-face {
+    font-family: Rabie;
+    src: url('../fonts/RABIE-REGULAR.TTF');
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f0f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #9e9e9e, #838383);
+    border-radius: 2px;
+}
+
+
+* {
+    padding: 0;
+    margin: 0; 
+    box-sizing: border-box; /* لضمان دقة المقاسات */
+    scroll-behavior: smooth;
+    direction: rtl;
+}
+
+body {
+    background-color: #0f0f0f; /* لون أسود أعمق للفخامة */
+    font-family: Rabie, sans-serif;
+    color: #ffffff;
+}
+
+/* الهيدر الحديث */
+/* --- الهيدر الأساسي --- */
+.premium-header {
+    background-color: #202020;
+    margin: 1em;
+    border-radius: 10px;
+    padding: 1em 1.5em; /* تقليل البادينج قليلاً لزيادة المساحة */
+    position: sticky;
+    top: 10px;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px; /* مسافة بين العناصر */
+}
+
+/* --- تصميم اللوجو الفخم --- */
+.logo-text {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: -1px;
+    transition: 0.4s ease;
+    white-space: nowrap; /* يمنع انكسار اللوجو */
+}
+
+.logo-text .dot {
+    color: #d4af37;
+}
+
+.logo-text:hover {
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+/* --- روابط التنقل (تظهر دائماً) --- */
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-item {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s all ease;
+    padding: 8px 12px;
+    border-radius: 12px;
+    white-space: nowrap; /* يمنع نزول النص لسطر جديد */
+}
+
+.nav-item i {
+    color: #d4af37;
+    font-size: 0.85rem;
+}
+
+.nav-item:hover {
+    color: #d4af37;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* --- تمييز رابط الخطوط المدفوعة --- */
+.premium-link {
+    position: relative;
+    color: #d4af37;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.premium-link i {
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.premium-link:hover {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+/* --- زر التواصل Ultra Modern --- */
+.contact-ultra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 25px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    color: #d4af37;
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+}
+
+.contact-ultra i {
+    font-size: 0.8rem;
+}
+
+.contact-ultra:hover {
+    background: #d4af37;
+    color: #000;
+    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    transform: scale(1.05);
+}
+
+/* --- نظام التجاوب الشامل (بدون إخفاء) --- */
+@media (max-width: 1024px) {
+    .logo-text { font-size: 1.5rem; }
+    .nav-item { font-size: 0.85rem; padding: 6px 10px; }
+    .contact-ultra { padding: 8px 18px; font-size: 0.85rem; }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        overflow-x: auto; /* يسمح بالتمرير الأفقي إذا ضاقت الشاشة */
+        justify-content: flex-start; /* ترتيب العناصر من اليمين */
+        padding-bottom: 5px; /* مساحة بسيطة تحت التمرير */
+    }
+
+    /* إخفاء شريط التمرير للحفاظ على الجمالية */
+    .nav-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .premium-header {
+        padding: 0.8em 1em;
+        margin: 0.5em;
+    }
+
+    .logo-text { font-size: 1.3rem; }
+}
+
+@media (max-width: 480px) {
+    .nav-container {
+        gap: 20px; /* توسيع الفراغ بين العناصر لتسهيل اللمس أثناء التمرير */
+    }
+}
+
+/* --- تنسيق قسم تواصل معنا --- */
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 150px); /* ليتوسط الصفحة مع مراعاة الهيدر */
+    padding: 20px;
+}
+
+.con {
+    text-align: center;
+    background: #1a1a1a;
+    padding: 50px 40px;
+    border-radius: 30px;
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.con h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+}
+
+/* خط تحت كلمة تواصل معنا */
+.con h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+    width: 50%;
+    height: 3px;
+    background: #d4af37;
+    border-radius: 5px;
+}
+
+/* حاوية الأزرار */
+.con div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* زرين في كل صف */
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* تنسيق أزرار تليجرام */
+.con a {
+    text-decoration: none;
+    color: #fff;
+    background: #252525;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* أيقونة افتراضية للأزرار (سنضيفها في HTML) */
+.con a i {
+    color: #d4af37;
+    font-size: 1.3rem;
+}
+
+/* تأثيرات الهوفر */
+.con a:hover {
+    background: #d4af37;
+    color: #000;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+    border-color: transparent;
+}
+
+.con a:hover i {
+    color: #000;
+}
+
+/* التجاوب مع الموبايل */
+@media (max-width: 480px) {
+    .con {
+        padding: 30px 20px;
+    }
+    
+    .con h1 {
+        font-size: 1.8rem;
+    }
+
+    .con div {
+        grid-template-columns: 1fr; /* زر واحد في كل صف في الموبايل */
+    }
+}
