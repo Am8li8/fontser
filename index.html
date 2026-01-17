@@ -215,22 +215,14 @@
         <h2 id="modalFontName">اسم الخط</h2>
         <p>باقي القليل ليصبح هذا الخط متاحاً للجميع مجاناً!</p>
         <div class="vote-progress-container">
-            <div class="vote-stats"><span id="currentVotes">0</span> من <span>50 صوت</span></div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+            <div class="vote-stats">
+                <span id="currentVotes">0</span> من <span>50 صوت</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
-        <div class="vote-modal-overlay" id="voteModal">
-    <div class="vote-modal-card">
-        <button class="close-modal" onclick="closeVoteModal()">&times;</button>
-        <i class="fa-solid fa-square-poll-vertical modal-icon"></i>
-        <h2 id="modalFontName">اسم الخط</h2>
-        <p>باقي القليل ليصبح هذا الخط متاحاً للجميع مجاناً!</p>
-        <div class="vote-progress-container">
-            <div class="vote-stats"><span id="currentVotes">0</span> من <span>50 صوت</span></div>
-            <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
-        </div>
-        <button class="confirm-vote-btn" onclick="alert('سيتم الربط بـ Firebase قريباً!')">تأكيد التصويت</button>
-    </div>
-</div>
+        <button class="confirm-vote-btn" onclick="confirmVote()">تأكيد التصويت</button>
     </div>
 </div>
 

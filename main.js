@@ -1,4 +1,4 @@
-// 1. إعدادات Firebase الخاصة بمشروعك (fontser-a3ca2) - تم إضافة بياناتك الحقيقية
+// 1. إعدادات Firebase الخاصة بمشروعك
 const firebaseConfig = {
     apiKey: "AIzaSyDimIFq47GG61jeP6_QT6pOvXznup-W_vo",
     authDomain: "fontser-a3ca2.firebaseapp.com",
@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // --- 1. منطق معاينة الخطوط ---
     const cards = document.querySelectorAll('.font-card-wrapper');
-
     cards.forEach(card => {
         const fontName = card.getAttribute('data-font');
         const preview = card.querySelector('.preview-target');
@@ -37,42 +36,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- 2. منطق نافذة التصويت والربط مع Firebase ---
+    // --- 2. منطق التصويت ---
     const voteModal = document.getElementById('voteModal');
     const progressBar = document.getElementById('progressBar');
     const currentVotesEl = document.getElementById('currentVotes');
-    const voteBtn = document.querySelector(".btn-vote-trigger");
+    const voteBtnTrigger = document.querySelector(".btn-vote-trigger");
     const fontId = "EliteFont_01"; 
 
-    // مراقبة العداد من Firebase وتحديث الواجهة
+    // جلب البيانات وتحديث العداد لايف
     db.ref('votes/' + fontId).on('value', (snapshot) => {
         const data = snapshot.val();
-        // إذا لم توجد بيانات، نعتبر العداد 0
         const count = (data && data.count) ? data.count : 0;
 
-        // تحديث النص (هذا سيحذف جملة "سيتم الربط قريباً" ويضع الرقم)
-        if (currentVotesEl) {
-            currentVotesEl.innerText = count;
-        }
-
-        // تحديث شريط التقدم
+        if (currentVotesEl) currentVotesEl.innerText = count;
         if (progressBar) {
             const percent = (Math.min(count, 50) / 50) * 100;
             progressBar.style.width = percent + '%';
         }
 
-        // تحويل الزر لزر تحميل إذا وصل لـ 50 صوت
-        if (count >= 50 && voteBtn) {
-            voteBtn.innerText = "تحميل الخط الآن";
-            voteBtn.style.cssText = "background: #27ae60 !important; color: #fff !important; border: none; font-weight: bold; cursor: pointer;";
-            voteBtn.onclick = (e) => {
+        // تحويل زر "صوّت الآن" لزر تحميل عند الوصول للهدف
+        if (count >= 50 && voteBtnTrigger) {
+            voteBtnTrigger.innerText = "تحميل الخط";
+            voteBtnTrigger.style.background = "#27ae60";
+            voteBtnTrigger.style.color = "#fff";
+            voteBtnTrigger.onclick = (e) => {
                 e.stopPropagation();
                 window.location.href = "files/EliteFont.zip";
             };
         }
     });
 
-    window.openVoteModal = function(name, votes) {
+    window.openVoteModal = function(name) {
         document.getElementById('modalFontName').innerText = name;
         voteModal.style.display = 'flex';
     };
@@ -83,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.confirmVote = function() {
         if (localStorage.getItem('voted_' + fontId)) {
-            alert("يا مالك، لقد قمت بالتصويت مسبقاً لهذا الخط!");
+            alert("لقد قمت بالتصويت مسبقاً!");
             closeVoteModal();
             return;
         }
@@ -96,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("شكراً لك! تم احتساب صوتك.");
                 closeVoteModal();
             } else {
-                alert("حدث خطأ في الاتصال، تأكد من إعدادات الـ Rules في Firebase.");
+                alert("خطأ في الاتصال بقاعدة البيانات.");
             }
         });
     };
