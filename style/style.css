@@ -325,37 +325,127 @@ body {
     }
 }
 
-/* حاوية الشبكة - 4 كروت في الصف */
+/* --- زر البحث الجديد في الهيدر --- */
+.search-btn-trigger {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #d4af37;
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn-trigger:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: #d4af37;
+    transform: scale(1.05);
+}
+
+/* --- موديل البحث (Overlay) --- */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 15, 15, 0.384);
+    z-index: 2000;
+    display: none; /* يظهر بالـ JS */
+    justify-content: center;
+    padding-top: 150px;
+    backdrop-filter: blur(5px);
+}
+
+.search-content {
+    width: 90%;
+    max-width: 800px;
+    animation: fadeInDown 0.4s ease;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.search-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 2px solid #d4af37;
+    padding-bottom: 15px;
+}
+
+#searchInput {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    width: 100%;
+    outline: none;
+    font-family: 'Rabie', sans-serif;
+}
+
+.close-search {
+    background: transparent;
+    border: none;
+    color: #888;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-search:hover { color: #d4af37; }
+
+.results-count {
+    margin-top: 20px;
+    color: #888;
+    font-size: 1.1rem;
+    text-align: right;
+}
+
+/* تحسين التجاوب للموبايل */
+@media (max-width: 768px) {
+    #searchInput { font-size: 1.5rem; }
+    .search-overlay { padding-top: 80px; }
+}
+
+/* --- حاوية الشبكة --- */
 .fonts-grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 25px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
     padding: 40px 5%;
     direction: rtl;
 }
 
-/* الكارت الأساسي وتأثيرات الحركة */
+/* الكارت الأساسي بتصميم زجاجي فاخر */
 .font-card-wrapper {
-    background: #1a1a1a;
+    background: linear-gradient(145deg, #1a1a1a, #141414);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
+    border-radius: 28px;
     padding: 25px;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 }
 
-/* تأثير عند تمرير الماوس على الكارت */
 .font-card-wrapper:hover {
-    transform: translateY(-12px) scale(1.02);
+    transform: translateY(-12px);
     border-color: #d4af37;
-    background: #1e1e1e;
+    background: #1c1c1c;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.1);
 }
 
-/* رأس الكارت والشارة الخضراء */
+/* رأس الكارت */
 .card-top {
     display: flex;
     justify-content: space-between;
@@ -364,51 +454,51 @@ body {
 }
 
 .status-badge {
-    background: rgba(46, 213, 115, 0.15); /* خلفية خضراء شفافة */
-    color: #2ed573; /* لون أخضر نيون */
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
     padding: 6px 14px;
-    border-radius: 10px;
-    font-size: 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
     font-weight: bold;
-    border: 1px solid rgba(46, 213, 115, 0.3);
-    box-shadow: 0 0 15px rgba(46, 213, 115, 0.1);
+    border: 1px solid rgba(46, 213, 115, 0.2);
+    letter-spacing: 0.5px;
 }
 
 .font-title {
-    color: #888;
-    font-size: 1rem;
+    color: #777;
+    font-size: 0.95rem;
     font-weight: 500;
 }
 
-/* منطقة المعاينة - تدعم نزول السطر تلقائياً */
+/* منطقة المعاينة */
 .preview-box {
-    min-height: 180px;
+    min-height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 10px 0;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    margin-bottom: 5px;
 }
 
 .main-display {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     color: #ffffff;
-    line-height: 1.4;
+    line-height: 1.3;
     width: 100%;
-    /* السحر البرمجي لنزول النص لسطر جديد */
     white-space: normal;
     word-wrap: break-word;
-    overflow-wrap: break-word;
-    transition: all 0.4s ease;
+    transition: color 0.4s ease;
 }
 
-/* تفعيل هوفر النص ليصبح ذهبي */
 .font-card-wrapper:hover .main-display {
     color: #d4af37;
-    text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
 }
 
-/* صندوق الإدخال (التجربة) */
+/* صندوق التجربة */
 .input-wrapper {
     position: relative;
     margin: 20px 0;
@@ -417,93 +507,89 @@ body {
 .input-wrapper input {
     width: 100%;
     padding: 14px 45px 14px 15px;
-    background: #0f0f0f;
-    border: 1px solid #333;
-    border-radius: 14px;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 16px;
     color: #fff;
-    font-family: inherit; /* لضمان استخدام الخط المعين */
     outline: none;
     transition: 0.3s;
 }
 
 .input-wrapper input:focus {
     border-color: #d4af37;
-    background: #151515;
+    background: #111;
 }
 
 .input-wrapper i {
     position: absolute;
-    right: 15px;
+    right: 18px;
     top: 50%;
     transform: translateY(-50%);
-    color: #555;
-    transition: 0.3s;
+    color: #444;
 }
 
-.input-wrapper input:focus + i {
-    color: #d4af37;
-}
-
-/* تذييل الكارت - العناصر تحت بعضها */
+/* --- تذييل الكارت وزر التحميل "البطل" --- */
 .card-footer {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+    justify-content: center; /* توسيط الزر ليملأ الفراغ */
+    align-items: center;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     padding-top: 20px;
     margin-top: auto;
 }
 
-.font-specs {
-    display: flex;
-    flex-direction: column; /* جعل المواصفات تحت بعضها */
-    gap: 10px;
-}
-
-.font-specs span {
-    color: #777;
-    font-size: 0.85rem;
+.btn-download {
+    width: 100%; /* جعل الزر عريضاً بما أنه الوحيد */
+    background: #838383;
+    color: #000;
+    padding: 14px;
+    border-radius: 16px;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1rem;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.05);
 }
 
-.font-specs i {
-    color: #d4af37;
-    width: 18px;
-    text-align: center;
-}
-
-/* زر التحميل الحديث */
-.btn-download {
-    background: #ffffff;
-    color: #000;
-    padding: 6px 20px;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
+/* إضافة أيقونة تحميل بالـ CSS */
+.btn-download::after {
+    content: "\f019"; /* كود أيقونة التحميل */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
 }
 
 .btn-download:hover {
     background: #d4af37;
-    color: #fff;
-    transform: scale(1.05) rotate(-2deg);
-    box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+    color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
 }
 
-/* التجاوب مع الشاشات */
+.btn-download:hover::after {
+    animation: downloadBounce 0.6s infinite alternate;
+}
+
+@keyframes downloadBounce {
+    from { transform: translateY(-3px); }
+    to { transform: translateY(1px); }
+}
+
+/* دعم زر المقارنة إذا أضيف برمجياً بجانب الزر */
+.font-specs {
+    margin-left: 10px; /* مسافة بينه وبين الداونلود */
+}
+
+/* التجاوب */
 @media (max-width: 1300px) {
-    .fonts-grid-container { grid-template-columns: repeat(2, 1fr); }
+    .fonts-grid-container { grid-template-columns: repeat(2, 1fr); gap: 20px; }
 }
 
 @media (max-width: 700px) {
-    .fonts-grid-container { 
-        grid-template-columns: 1fr;
-        padding: 20px 10%;
-    }
+    .fonts-grid-container { grid-template-columns: 1fr; padding: 20px 8%; }
 }
 
 /* --- نافذة التصويت (Pop-up) --- */

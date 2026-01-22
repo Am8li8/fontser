@@ -16,6 +16,7 @@
         </div>
 
         <nav class="nav-links">
+            
             <a href="index.html" class="nav-item premium-link">
                 <i class="fa-solid fa-crown"></i>
                 <span>الخطوط المدفوعة</span>
@@ -26,14 +27,27 @@
             </a>
         </nav>
 
-        <div class="actions-wrapper">
-            <a href="contact.html" class="contact-ultra">
-                <span>تواصل معنا</span>
-                <i class="fa-solid fa-paper-plane"></i>
-            </a>
-        </div>
-    </div>
+<div class="actions-wrapper" style="display: flex; align-items: center; gap: 15px;">
+    <button class="search-btn-trigger" onclick="toggleSearch()" title="بحث عن خط">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    <a href="contact.html" class="contact-ultra">
+        <span>تواصل معنا</span>
+        <i class="fa-solid fa-paper-plane"></i>
+    </a>
+</div>
 </header>
+
+<div id="searchOverlay" class="search-overlay">
+    <div class="search-content">
+        <div class="search-header">
+            <input type="text" id="searchInput" placeholder="اكتب اسم الخط للبحث..." oninput="filterFonts()">
+            <button class="close-search" onclick="toggleSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <div id="searchResultsCount" class="results-count"></div>
+    </div>
+</div>
     
 <main class="fonts-grid-container">
 
@@ -41,155 +55,159 @@
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط ربيع</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Regular</span></div><a href="files/RABIE.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/RABIE.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="HT-Moshreq-Pro" data-font="HT Moshreq Pro">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط مشرق برو</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/HTMoshreqPro.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/HTMoshreqPro.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="TS-Zunburk" data-font="TS Zunburk">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط زنبرك</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/TS Zunburk.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/TS Zunburk.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Salma" data-font="Salma">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط سلمى</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/salma.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/salma.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Fatimah" data-font="Fatimah">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط فاطمة</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Fatimah Arabic.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Fatimah Arabic.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Rawasi" data-font="Rawasi">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط رواسي</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/RawasiDisplayArabic.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/RawasiDisplayArabic.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Paykan" data-font="Paykan">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط بيكان</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Paykan.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Paykan.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Lyon" data-font="Lyon">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط ليون</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/LyonArabicDisplay.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/LyonArabicDisplay.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Foda" data-font="Foda">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط فودا</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="fonts/foda-reg.otf" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="fonts/foda-reg.otf" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Ghoraab" data-font="Ghoraab">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط غراب</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="fonts/GhraabArabicitf-ExtraBold.otf" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="fonts/GhraabArabicitf-ExtraBold.otf" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Rubama" data-font="Rubama">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط كو ربما</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/KORubbama.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/KORubbama.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Mawzoon" data-font="Mawzoon">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط موزون</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/موزون.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/موزون.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Aynama" data-font="Aynama">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط كو أينما</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/KOAynama.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/KOAynama.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Omnia" data-font="Omnia">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط أمنية سيرف</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/OmniaSerif.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/OmniaSerif.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Orleen" data-font="Orleen">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط أورلين</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Orleen.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Orleen.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Typokaar" data-font="Typokaar">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط تايبوكار</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="fonts/Typokaar.ttf" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="fonts/Typokaar.ttf" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="TS-Studio" data-font="Ts studio">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">TS Studio خط</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/TSStudio.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/TSStudio.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Shaheen" data-font="Shaheen">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط شاهين برو</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Shaheen pro.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Shaheen pro.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Qorunful" data-font="Qorunful">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط قرنفل</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Qoronfull-Bold.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Qoronfull-Bold.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Mestika" data-font="Mestika">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط مستيكا</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Mestika.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Mestika.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Mishmish" data-font="Mishmish">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط مشمش</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/Mishmish.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/Mishmish.zip" download class="btn-download">تحميل</a></div>
     </div>
 
     <div class="font-card-wrapper" id="Lina" data-font="Lina">
         <div class="card-top"><span class="status-badge free-badge">مجاني</span><h3 class="font-title">خط لينا سوفت</h3></div>
         <div class="preview-box"><p class="main-display preview-target">أبجد هوز حطي كلمن</p></div>
         <div class="input-wrapper"><input type="text" class="userInput" placeholder="جرب الخط هنا..." dir="rtl"><i class="fa-solid fa-keyboard"></i></div>
-        <div class="card-footer"><div class="font-specs"><span><i class="fa-solid fa-vector-square"></i> TTF</span><span><i class="fa-solid fa-weight-bold"></i> Medium</span></div><a href="files/lina soft.zip" download class="btn-download">تحميل</a></div>
+        <div class="card-footer"><a href="files/lina soft.zip" download class="btn-download">تحميل</a></div>
     </div>
+
+
+
+
 </main>
 
 <script src="main.js"></script>

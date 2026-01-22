@@ -6,6 +6,21 @@
     <title>سر الخط | Fontser</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f0f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #9e9e9e, #838383);
+    border-radius: 2px;
+}
+
         @font-face {
             font-family: Rabie;
             src: url(fonts/RABIE-REGULAR.TTF);
@@ -236,7 +251,7 @@
         #fileInput { display: none; }
 
         .control-group {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .control-group label {
@@ -259,9 +274,10 @@
             border-radius: 10px;
             color: #fff;
             padding: 15px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             resize: none;
             outline: none;
+            overflow-y: hidden;
         }
 
         textarea:focus { border-color: var(--primary); }
@@ -272,22 +288,25 @@
             border-radius: 20px;
             padding: 40px;
             display: flex;
-            align-items: center;
-            justify-content: center;
+            align-items: center;      /* التوسط الطولي */
+            justify-content: center;   /* التوسط العرضي */
+            min-height: 400px;         /* يفضل تحديد حد أدنى للارتفاع لضمان المساحة */
             overflow: hidden;
             position: relative;
             border: 1px solid rgba(255,255,255,0.05);
         }
 
-        .preview-text {
-            width: 100%;
-            color: #fff;
-            line-height: 1.5;
-            text-align: center;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-            transition: font-size 0.2s;
-        }
+    .preview-text {
+        width: 100%;
+        color: #fff;
+        line-height: 1.2;          /* تقليل مسافة السطور يساعد في التوسط الطولي للخطوط العربية */
+        text-align: center;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        transition: font-size 0.2s;
+        display: block;            /* التأكد من أنه يأخذ العرض كاملاً */
+        margin: 0 auto;            /* توسيط إضافي */
+    }
 
         .font-info-badge {
             position: absolute;
@@ -346,8 +365,8 @@
             </div>
 
             <div class="control-group">
-                <label>حجم الخط: <span id="sizeValue">60</span>px</label>
-                <input type="range" id="fontSize" min="10" max="200" value="60">
+                <label>حجم الخط: <span id="sizeValue">30</span>px</label>
+                <input type="range" id="fontSize" min="30" max="35" value="30">
             </div>
 
             <div class="control-group">
@@ -357,7 +376,7 @@
 
             <div class="control-group">
                 <label>لون الخط:</label>
-                <input type="color" id="textColor" value="#ffffff" style="width: 100%; height: 40px; border: none; background: none; cursor: pointer;">
+                <input type="color" id="textColor" value="#ffffff" style="width: 100%; height: 50px; border: none; background: none; cursor: pointer;">
             </div>
         </aside>
 

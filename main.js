@@ -1,6 +1,92 @@
+// --- 1. الدوال العامة للبحث (Global Functions) ---
+
+// دالة تنظيف النص العربي لتوحيد البحث (أ، إ، آ -> ا)
+function normalizeArabic(text) {
+    if (!text) return "";
+    return text.replace(/[أإآ]/g, 'ا')
+               .replace(/ة/g, 'ه')
+               .replace(/ى/g, 'ي')
+               .trim()
+               .toLowerCase();
+}
+
+// خوارزمية البحث المرن (Fuzzy Search)
+function isFuzzyMatch(searchTerm, targetText) {
+    searchTerm = normalizeArabic(searchTerm);
+    targetText = normalizeArabic(targetText);
+    
+    let searchIndex = 0;
+    let targetIndex = 0;
+
+    while (searchIndex < searchTerm.length && targetIndex < targetText.length) {
+        if (searchTerm[searchIndex] === targetText[targetIndex]) {
+            searchIndex++;
+        }
+        targetIndex++;
+    }
+    return searchIndex === searchTerm.length;
+}
+
+// فتح وإغلاق نافذة البحث
+window.toggleSearch = function() {
+    const overlay = document.getElementById('searchOverlay');
+    const input = document.getElementById('searchInput');
+    
+    if (!overlay) return;
+
+    if (overlay.style.display === 'flex') {
+        overlay.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    } else {
+        overlay.style.display = 'flex';
+        // لا نمسح القيمة هنا لكي يظهر ما في الرابط إذا وجد
+        setTimeout(() => input.focus(), 50); 
+        document.body.style.overflow = 'hidden';
+        filterFonts();
+    }
+};
+
+// فلترة الخطوط وتحديث الرابط (URL)
+window.filterFonts = function() {
+    const input = document.getElementById('searchInput');
+    const searchTerm = input.value;
+    const fontCards = document.querySelectorAll('.font-card-wrapper');
+    let foundCount = 0;
+
+    // --- تحديث الرابط في المتصفح ---
+    const url = new URL(window.location);
+    if (searchTerm) {
+        url.searchParams.set('q', searchTerm);
+    } else {
+        url.searchParams.delete('q');
+    }
+    window.history.replaceState({}, '', url);
+
+    // --- منطق الفلترة ---
+    fontCards.forEach(card => {
+        const fontTitle = card.querySelector('.font-title').innerText;
+        
+        if (searchTerm === "") {
+            card.style.display = 'flex';
+        } else if (isFuzzyMatch(searchTerm, fontTitle)) {
+            card.style.display = 'flex';
+            foundCount++;
+        } else {
+            card.style.display = 'none';
+        }
+    });
+
+    const countEl = document.getElementById('searchResultsCount');
+    if (countEl) {
+        countEl.innerText = searchTerm === "" ? "" : `تم العثور على ${foundCount} نتيجة`;
+    }
+};
+
+// --- 2. منطق التشغيل الأساسي عند تحميل الصفحة ---
+
 document.addEventListener("DOMContentLoaded", () => {
     
-    // --- 1. منطق معاينة الخطوط ---
+    // أ. منطق معاينة الخطوط
     const cards = document.querySelectorAll('.font-card-wrapper');
     cards.forEach(card => {
         const fontName = card.getAttribute('data-font');
@@ -18,62 +104,27 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- 2. منطق التصويت ---
-    const voteModal = document.getElementById('voteModal');
-    const progressBar = document.getElementById('progressBar');
-    const currentVotesEl = document.getElementById('currentVotes');
-    const voteBtnTrigger = document.querySelector(".btn-vote-trigger");
-    const fontId = "EliteFont_01"; 
-
-    // جلب البيانات وتحديث العداد لايف
-    db.ref('votes/' + fontId).on('value', (snapshot) => {
-        const data = snapshot.val();
-        const count = (data && data.count) ? data.count : 0;
-
-        if (currentVotesEl) currentVotesEl.innerText = count;
-        if (progressBar) {
-            const percent = (Math.min(count, 50) / 50) * 100;
-            progressBar.style.width = percent + '%';
+    // ب. فحص الرابط عند فتح الصفحة (Check URL for Search Query)
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('q');
+    if (query) {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            searchInput.value = query; // وضع الكلمة في الإدخال
+            toggleSearch(); // فتح نافذة البحث تلقائياً
         }
+    }
 
-        // تحويل زر "صوّت الآن" لزر تحميل عند الوصول للهدف
-        if (count >= 50 && voteBtnTrigger) {
-            voteBtnTrigger.innerText = "تحميل الخط";
-            voteBtnTrigger.style.background = "#27ae60";
-            voteBtnTrigger.style.color = "#fff";
-            voteBtnTrigger.onclick = (e) => {
-                e.stopPropagation();
-                window.location.href = "files/EliteFont.zip";
-            };
+    // ج. اختصارات لوحة المفاتيح
+    document.addEventListener('keydown', (e) => {
+        const overlay = document.getElementById('searchOverlay');
+        if (overlay && overlay.style.display === 'flex') {
+            if (e.key === "Enter" || e.key === "Escape") {
+                toggleSearch();
+            }
         }
     });
 
-    window.openVoteModal = function(name) {
-        document.getElementById('modalFontName').innerText = name;
-        voteModal.style.display = 'flex';
-    };
-
-    window.closeVoteModal = function() {
-        voteModal.style.display = 'none';
-    };
-
-    window.confirmVote = function() {
-        if (localStorage.getItem('voted_' + fontId)) {
-            alert("لقد قمت بالتصويت مسبقاً!");
-            closeVoteModal();
-            return;
-        }
-
-        db.ref('votes/' + fontId + '/count').transaction((currentCount) => {
-            return (currentCount || 0) + 1;
-        }, (error, committed) => {
-            if (committed) {
-                localStorage.setItem('voted_' + fontId, 'true');
-                alert("شكراً لك! تم احتساب صوتك.");
-                closeVoteModal();
-            } else {
-                alert("خطأ في الاتصال بقاعدة البيانات.");
-            }
-        });
-    };
+    
 });
+
