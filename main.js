@@ -14,35 +14,33 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// --- وظيفة مساعدة لتوحيد النصوص العربية (Normalization) ---
+// --- وظيفة مساعدة لتوحيد النصوص العربية ---
 function normalizeArabic(text) {
+    if (!text) return "";
     return text
         .replace(/[أإآ]/g, 'ا')
         .replace(/ة/g, 'ه')
         .replace(/[ىي]/g, 'ي')
-        .replace(/[\u064B-\u0652]/g, '') // حذف التشكيل
+        .replace(/[\u064B-\u0652]/g, '')
         .toLowerCase()
         .trim();
 }
 
-// --- وظيفة حساب التقارب بين الكلمات (Fuzzy Match) ---
+// --- وظيفة حساب التقارب (Fuzzy Match) ---
 function isFuzzyMatch(term, target) {
-    if (target.includes(term)) return true; // لو النص يحتوي الكلمة فعلاً
-    
-    // خوارزمية بسيطة: لو طول الكلمة كبير والفرق حرف واحد فقط
+    if (target.includes(term)) return true;
     if (term.length > 2) {
-        let distance = 0;
-        let i = 0, j = 0;
+        let distance = 0, i = 0, j = 0;
         while (i < term.length && j < target.length) {
             if (term[i] !== target[j]) {
                 distance++;
-                if (term.length < target.length) j++; // احتمال حرف ناقص
-                else if (term.length > target.length) i++; // احتمال حرف زائد
+                if (term.length < target.length) j++;
+                else if (term.length > target.length) i++;
                 else { i++; j++; }
             } else { i++; j++; }
         }
         distance += (term.length - i) + (target.length - j);
-        return distance <= 1; // السماح بخطأ في حرف واحد فقط
+        return distance <= 1;
     }
     return false;
 }
@@ -55,6 +53,8 @@ window.toggleSearch = function() {
     if (overlay.style.display === 'flex') {
         overlay.style.display = 'none';
         input.value = '';
+        // تنظيف الـ URL عند إغلاق البحث
+        window.history.replaceState(null, '', window.location.pathname);
         window.filterFonts(); 
     } else {
         overlay.style.display = 'flex';
@@ -62,7 +62,7 @@ window.toggleSearch = function() {
     }
 };
 
-// --- 2. التحكم عن طريق الكيبورد ---
+// --- 2. التحكم بالكيبورد ---
 document.addEventListener('keydown', (e) => {
     const overlay = document.getElementById('searchOverlay');
     if (overlay && overlay.style.display === 'flex') {
@@ -71,7 +71,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// --- 3. وظيفة البحث المتقدم (Fuzzy Search) ---
+// --- 3. وظيفة البحث وتحديث الـ URL ---
 window.filterFonts = function() {
     const rawTerm = document.getElementById('searchInput').value;
     const term = normalizeArabic(rawTerm);
@@ -79,50 +79,46 @@ window.filterFonts = function() {
     const container = document.querySelector('.fonts-grid-container');
     let hasResults = false;
     let count = 0;
-
-    let noResultsMsg = document.getElementById('noResults');
-    if (!noResultsMsg) {
-        noResultsMsg = document.createElement('div');
-        noResultsMsg.id = 'noResults';
-        noResultsMsg.innerHTML = `<i class="fa-solid fa-face-frown" style="font-size: 3rem; color: #444;"></i> <p style="margin-top:15px;">عفواً، لا يوجد خط بهذا الاسم!</p>`;
-        noResultsMsg.style.cssText = "display:none; color:#777; text-align:center; grid-column:1/-1; padding:50px; font-size:1.2rem; direction:rtl;";
-        container.appendChild(noResultsMsg);
-    }
+    let firstMatchId = null;
 
     cards.forEach(card => {
         const title = normalizeArabic(card.querySelector('.font-title').innerText);
         const fontData = normalizeArabic(card.getAttribute('data-font'));
         
-        // استخدام fuzzy match هنا
         if (isFuzzyMatch(term, title) || isFuzzyMatch(term, fontData)) {
             card.style.display = 'flex';
             hasResults = true;
             count++;
+            if (!firstMatchId) firstMatchId = card.id;
         } else {
             card.style.display = 'none';
         }
     });
 
-    const countDisplay = document.getElementById('searchResultsCount');
-    if (countDisplay) {
-        countDisplay.innerText = term !== "" ? `تم إيجاد ${count} خط` : "";
+    // تحديث الـ URL برمجياً أثناء البحث
+    if (term !== "" && firstMatchId) {
+        window.history.replaceState(null, '', `?id=${firstMatchId}`);
+    } else if (term === "") {
+        window.history.replaceState(null, '', window.location.pathname);
     }
 
-    noResultsMsg.style.display = (hasResults || term === "") ? 'none' : 'block';
+    const countDisplay = document.getElementById('searchResultsCount');
+    if (countDisplay) countDisplay.innerText = term !== "" ? `تم إيجاد ${count} خط` : "";
+
+    let noRes = document.getElementById('noResults');
+    if (noRes) noRes.style.display = (hasResults || term === "") ? 'none' : 'block';
 };
 
-// --- 4. باقي وظائف الموقع ---
+// --- 4. وظائف التفاعل والمشاركة ---
 function reverseCardsOrder() {
     const container = document.querySelector('.fonts-grid-container');
     if (!container) return;
     const cards = Array.from(container.querySelectorAll('.font-card-wrapper'));
-    cards.reverse();
-    cards.forEach(card => container.appendChild(card));
+    cards.reverse().forEach(card => container.appendChild(card));
 }
 
 window.rateFont = function(fontId, ratingValue) {
-    const ratingRef = ref(db, `fonts/${fontId}/rating`);
-    runTransaction(ratingRef, (current) => {
+    runTransaction(ref(db, `fonts/${fontId}/rating`), (current) => {
         if (!current) return { totalPoints: ratingValue, count: 1, average: ratingValue };
         const newTotal = (current.totalPoints || 0) + ratingValue;
         const newCount = (current.count || 0) + 1;
@@ -143,13 +139,11 @@ function renderStars(fontId, averageRating) {
 }
 
 window.openShareModal = function(fontId) {
-    const modal = document.getElementById('shareModal');
-    const input = document.getElementById('shareLinkInput');
     const siteUrl = `${window.location.origin}${window.location.pathname}?id=${fontId}`;
-    input.value = siteUrl;
+    document.getElementById('shareLinkInput').value = siteUrl;
     document.getElementById('shareFB').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
     document.getElementById('shareWA').href = `https://wa.me/?text=تحميل خط احترافي: ${encodeURIComponent(siteUrl)}`;
-    modal.style.display = 'flex';
+    document.getElementById('shareModal').style.display = 'flex';
 };
 
 window.closeShareModal = () => document.getElementById('shareModal').style.display = 'none';
@@ -157,30 +151,27 @@ window.closeShareModal = () => document.getElementById('shareModal').style.displ
 window.copyModalLink = function() {
     const input = document.getElementById('shareLinkInput');
     navigator.clipboard.writeText(input.value);
-    document.getElementById('copyBtnText').innerText = "تم!";
-    setTimeout(() => document.getElementById('copyBtnText').innerText = "نسخ", 2000);
+    const btnText = document.getElementById('copyBtnText');
+    btnText.innerText = "تم!";
+    setTimeout(() => btnText.innerText = "نسخ", 2000);
 };
 
-window.incrementDownload = function(fontId) {
-    const fontRef = ref(db, 'fonts/' + fontId + '/downloads');
-    runTransaction(fontRef, (count) => (count || 0) + 1);
-};
+window.incrementDownload = (id) => runTransaction(ref(db, `fonts/${id}/downloads`), c => (c || 0) + 1);
 
 function listenToFirebase() {
     onValue(ref(db, 'fonts'), (snapshot) => {
         const data = snapshot.val();
         if (data) {
-            for (let id in data) {
+            Object.keys(data).forEach(id => {
                 const countEl = document.querySelector(`.download-count[data-id="${id}"] .count-val`);
                 if (countEl) countEl.innerText = data[id].downloads || 0;
-                if (data[id].rating) renderStars(id, data[id].rating.average);
-                else renderStars(id, 0);
-            }
+                renderStars(id, data[id].rating?.average || 0);
+            });
         }
     });
 }
 
-// --- 5. تهيئة الصفحة ---
+// --- 5. تهيئة الصفحة والـ Highlight ---
 document.addEventListener("DOMContentLoaded", () => {
     reverseCardsOrder();
 
@@ -188,8 +179,9 @@ document.addEventListener("DOMContentLoaded", () => {
     cards.forEach(card => {
         const fontId = card.id;
         const fontName = card.getAttribute('data-font');
+        
+        // زر المشاركة
         const footer = card.querySelector('.card-footer');
-
         if (footer && !card.querySelector('.btn-share')) {
             const btn = document.createElement('button');
             btn.className = 'btn-share';
@@ -198,9 +190,11 @@ document.addEventListener("DOMContentLoaded", () => {
             footer.appendChild(btn);
         }
 
+        // زر التحميل
         const dlBtn = card.querySelector('.btn-download');
         if (dlBtn) dlBtn.onclick = () => window.incrementDownload(fontId);
 
+        // تجربة الخط
         const input = card.querySelector('.userInput');
         const preview = card.querySelector('.preview-target');
         if (input && preview) {
@@ -213,11 +207,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     listenToFirebase();
 
+    // تفعيل الهايلايت والتحرك للخط المطلوب من الرابط
     const targetId = new URLSearchParams(window.location.search).get('id');
     if (targetId) {
         setTimeout(() => {
             const el = document.getElementById(targetId);
-            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 800);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                el.classList.add('highlight-card');
+                // إزالة التحديد بعد 2 ثواني ليبقى التصميم نظيفاً
+                setTimeout(() => el.classList.remove('highlight-card'), 2000);
+            }
+        }, 1000); 
     }
 });
