@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Allow: /files/
+Allow: /fonts/
+
+# رابط الخريطة
+Sitemap: https://fontser.netlify.app/sitemap.xml

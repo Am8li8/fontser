@@ -53,7 +53,6 @@ window.toggleSearch = function() {
     if (overlay.style.display === 'flex') {
         overlay.style.display = 'none';
         input.value = '';
-        // تنظيف الـ URL عند إغلاق البحث
         window.history.replaceState(null, '', window.location.pathname);
         window.filterFonts(); 
     } else {
@@ -76,7 +75,6 @@ window.filterFonts = function() {
     const rawTerm = document.getElementById('searchInput').value;
     const term = normalizeArabic(rawTerm);
     const cards = document.querySelectorAll('.font-card-wrapper');
-    const container = document.querySelector('.fonts-grid-container');
     let hasResults = false;
     let count = 0;
     let firstMatchId = null;
@@ -95,7 +93,6 @@ window.filterFonts = function() {
         }
     });
 
-    // تحديث الـ URL برمجياً أثناء البحث
     if (term !== "" && firstMatchId) {
         window.history.replaceState(null, '', `?id=${firstMatchId}`);
     } else if (term === "") {
@@ -109,7 +106,7 @@ window.filterFonts = function() {
     if (noRes) noRes.style.display = (hasResults || term === "") ? 'none' : 'block';
 };
 
-// --- 4. وظائف التفاعل والمشاركة ---
+// --- 4. وظائف التفاعل والمشاركة (تم إصلاح رابط تيليجرام) ---
 function reverseCardsOrder() {
     const container = document.querySelector('.fonts-grid-container');
     if (!container) return;
@@ -133,6 +130,8 @@ function renderStars(fontId, averageRating) {
     for (let i = 1; i <= 5; i++) {
         const star = document.createElement('i');
         star.className = i <= Math.round(averageRating) ? 'fa-solid fa-star active' : 'fa-regular fa-star';
+        // إضافة aria-label للنجوم لتحسين Accessibility
+        star.setAttribute('aria-label', `تقييم ${i} من 5`);
         star.onclick = () => window.rateFont(fontId, i);
         container.appendChild(star);
     }
@@ -140,9 +139,18 @@ function renderStars(fontId, averageRating) {
 
 window.openShareModal = function(fontId) {
     const siteUrl = `${window.location.origin}${window.location.pathname}?id=${fontId}`;
+    const shareText = `تحميل خط احترافي من موقع سر الخط:`;
+    
     document.getElementById('shareLinkInput').value = siteUrl;
+    
+    // روابط المشاركة
     document.getElementById('shareFB').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(siteUrl)}`;
-    document.getElementById('shareWA').href = `https://wa.me/?text=تحميل خط احترافي: ${encodeURIComponent(siteUrl)}`;
+    document.getElementById('shareWA').href = `https://wa.me/?text=${encodeURIComponent(shareText + " " + siteUrl)}`;
+    document.getElementById('shareTW').href = `https://twitter.com/intent/tweet?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`;
+    
+    // إصلاح رابط تيليجرام
+    document.getElementById('shareTG').href = `https://t.me/share/url?url=${encodeURIComponent(siteUrl)}&text=${encodeURIComponent(shareText)}`;
+    
     document.getElementById('shareModal').style.display = 'flex';
 };
 
@@ -185,6 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (footer && !card.querySelector('.btn-share')) {
             const btn = document.createElement('button');
             btn.className = 'btn-share';
+            btn.setAttribute('aria-label', `مشاركة خط ${fontName}`);
             btn.innerHTML = '<i class="fa-solid fa-share-nodes"></i>';
             btn.onclick = (e) => { e.preventDefault(); window.openShareModal(fontId); };
             footer.appendChild(btn);
@@ -192,7 +201,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // زر التحميل
         const dlBtn = card.querySelector('.btn-download');
-        if (dlBtn) dlBtn.onclick = () => window.incrementDownload(fontId);
+        if (dlBtn) {
+            dlBtn.setAttribute('aria-label', `تحميل خط ${fontName}`);
+            dlBtn.onclick = () => window.incrementDownload(fontId);
+        }
 
         // تجربة الخط
         const input = card.querySelector('.userInput');
@@ -207,7 +219,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     listenToFirebase();
 
-    // تفعيل الهايلايت والتحرك للخط المطلوب من الرابط
+    
+    // تفعيل الهايلايت
     const targetId = new URLSearchParams(window.location.search).get('id');
     if (targetId) {
         setTimeout(() => {
@@ -215,7 +228,6 @@ document.addEventListener("DOMContentLoaded", () => {
             if (el) {
                 el.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 el.classList.add('highlight-card');
-                // إزالة التحديد بعد 2 ثواني ليبقى التصميم نظيفاً
                 setTimeout(() => el.classList.remove('highlight-card'), 2000);
             }
         }, 1000); 
