@@ -141,20 +141,20 @@
 }
 
 @font-face {
-    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
-    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+    font-family: 'Zarid_display'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/29LT_Zarid_display_Medium.ttf');
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
-    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+    font-family: 'Zarid_slab'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/29LT_Zarid_slab_medium.ttf');
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Lyon'; /* الاسم الكامل كما تريده */
-    src: url('../fonts/LyonArabicDisplay-Medium.ttf');
+    font-family: 'Zarid_text'; /* الاسم الكامل كما تريده */
+    src: url('../fonts/29LT_zarid_text_Medium.TTF');
     font-display: swap;
 }
 
@@ -534,6 +534,18 @@ body {
     text-align: center;
     word-break: break-word;
     padding: 10px;
+}
+
+#Zarid_display .main-display {
+    font-size: 2.5rem;
+}
+
+#Zarid_slab .main-display {
+    font-size: 2.5rem;
+}
+
+#Zarid_text .main-display {
+    font-size: 2.5rem;
 }
 
 /* الإدخال للتجربة */
